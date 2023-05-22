@@ -1,0 +1,33 @@
+.signin{
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    /* justify-content: center; */
+    align-items: center;
+    padding-top: 100px;
+}
+
+form{
+    width: 400px;
+    display: flex;
+    flex-direction: column;
+    /* border: solid; */
+    box-shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px, rgba(27, 31, 35, 0.15) 0px 0px 0px 1px;
+    padding: 10px;
+    border-radius: 5px;
+}
+.signin input{
+    font-size: 16px;
+    padding: 5px;
+    margin-bottom: 20px;
+}
+.signin label{
+    margin-bottom: 10px;
+}
+.signin h1{
+    padding: 15px;
+    font-size: 40px;
+  font-weight: 600;
+ margin-bottom: 10px;
+}
