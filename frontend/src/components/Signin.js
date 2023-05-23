@@ -26,7 +26,7 @@ function Signin() {
       <label htmlFor="">Username</label>
       <input name='username' id='name' type="text" />
       <label htmlFor="">Password</label>
-      <input name='password' id='password' type="text" />
+      <input name='password' id='password' type="password" />
       <button style={{marginRight:'0', marginBottom:'10px'}} className='button-18'>Sign in</button>
       <button style={{marginRight:'0', marginBottom:'10px'}} className='button-18' onClick={()=>navTo('/signup')}>Create account</button>
       <button style={{marginRight:'0', marginBottom:'10px'}} className='button-18' onClick={()=>navTo('/forgotpassword')}>Forgot password</button>

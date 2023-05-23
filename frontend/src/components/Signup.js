@@ -27,7 +27,7 @@ function Signup() {
       <label htmlFor="username">User name</label>
       <input name='username' id='name' type="text" />
       <label htmlFor="password">Password</label>
-      <input name='password' id='password' type="text" />
+      <input name='password' id='password' type="password" />
       <button type='submit' style={{marginRight:'0', marginBottom:'10px'}} className='button-18'>Sign up</button>
       <button style={{marginRight:'0', marginBottom:'10px'}} className='button-18' onClick={()=>navTo('/')}>Already have account?</button>
       <button style={{marginRight:'0', marginBottom:'10px'}} className='button-18' onClick={()=>navTo('/forgotpassword')}>Forgot password</button>

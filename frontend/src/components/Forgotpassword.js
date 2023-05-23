@@ -24,7 +24,7 @@ function Forgotpassword() {
       <label htmlFor="">Enter username</label>
       <input name='username' id='name' type="text" />
       <label htmlFor="">Enter new password</label>
-      <input name='password' id='password' type="text" />
+      <input name='password' id='password' type="password" />
       <button style={{marginRight:'0', marginBottom:'10px'}} className='button-18'>Resest password</button>
       <button style={{marginRight:'0', marginBottom:'10px'}} className='button-18' onClick={()=>navTo('/')}>Sign in</button>
       </form>
