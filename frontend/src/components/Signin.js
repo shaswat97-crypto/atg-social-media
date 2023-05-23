@@ -12,7 +12,7 @@ function Signin() {
     let password = formData.get('password');
 
     let obj = {username, password};
-    let res = await axios.post('http://localhost:5000/api/v1/signin', obj)
+    let res = await axios.post('/api/v1/signin', obj)
     e.target.reset();
     console.log(res)
     if(res.status == 200){

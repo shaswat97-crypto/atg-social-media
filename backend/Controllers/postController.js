@@ -54,6 +54,7 @@ export const likePost = async (req, res) => {
 
 export const commentPost = async (req, res) => {
   try {
+    // console.log(req.body)
     const { postId } = req.params;
     const { comment } = req.body;
     let newPost = await Post.findByIdAndUpdate(postId, {

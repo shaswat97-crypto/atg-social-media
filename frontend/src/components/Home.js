@@ -5,13 +5,14 @@ import "./home.css";
 function Home() {
   const [postContent, setPostContent] = useState("");
   const [clicked, setClicked] = useState(false);
+  const [comment, setComment] = useState(false);
   const [posts, setPosts] = useState();
   const [currid, setCurrid] = useState(-1);
   const [updateText, setUpdateText] = useState("");
   useEffect(() => {
     console.log("chala");
     async function fetchPosts() {
-      let obj = await axios.get("http://localhost:5000/api/v1/posts");
+      let obj = await axios.get("/api/v1/posts");
       let data = await obj.data;
       console.log(data);
       setPosts(data);
@@ -23,7 +24,7 @@ function Home() {
     const obj = {
       content: postContent,
     };
-    const res = await axios.post("http://localhost:5000/api/v1/posts", obj);
+    const res = await axios.post("/api/v1/posts", obj);
     setClicked((prev) => !prev);
     setPostContent("");
     console.log(res.data);
@@ -35,23 +36,25 @@ function Home() {
       switch (e.target.innerText) {
         case "Update":
           setCurrid(id);
+          setComment(false);
           break;
         case "Update post":
           let obj = {
             content: updateText,
           };
           let res = await axios.put(
-            `http://localhost:5000/api/v1/posts/${id}`,
+            `/api/v1/posts/${id}`,
             obj
           );
           console.log(res.data);
           setCurrid(-1);
           setUpdateText("");
           setClicked((prev) => !prev);
+          setComment(false);
           break;
         case "Delete":
           let dres = await axios.delete(
-            `http://localhost:5000/api/v1/posts/${id}`
+            `/api/v1/posts/${id}`
           );
           console.log(dres);
           setCurrid(-1);
@@ -60,14 +63,14 @@ function Home() {
           break;
         case "Like":
           let lres = await axios.put(
-            `http://localhost:5000/api/v1/posts/${id}/like`
+            `/api/v1/${id}/like`
           );
           console.log(lres);
           setClicked((prev) => !prev);
           break;
         case "Dislike":
           let dlres = await axios.put(
-            `http://localhost:5000/api/v1/posts/${id}/like`
+            `/api/v1/${id}/like`
           );
           console.log(dlres);
           setClicked((prev) => !prev);
@@ -77,11 +80,31 @@ function Home() {
           setUpdateText("");
           setClicked((prev) => !prev);
           break;
+        case "Comment":
+          setCurrid(id);
+          setComment(true);
+          break;
+        case "Add comment":
+          let objC = {
+            comment: updateText,
+          };
+          let resC = await axios.post(
+            `/api/v1/${id}/comment`,
+            objC
+          );
+          console.log(resC.data);
+          setCurrid(-1);
+          setUpdateText("");
+          setClicked((prev) => !prev);
+          setComment(false);
+          break;
       }
     }
   };
+  console.log(posts)
   return (
     <div className="homecont">
+      <h2>My Social Media</h2>
       <div className="home">
         <textarea
           placeholder="What's on your mind..."
@@ -96,6 +119,7 @@ function Home() {
         </button>
         <div className="posts">
           <h2>All posts</h2>
+          {posts && posts.length == 0 && <h3 style={{textAlign:'center'}}>No posts to show</h3>}
           {posts && (
             <>
               {posts.map((post) => (
@@ -104,7 +128,7 @@ function Home() {
                   onClick={(e) => handleClick(e, post._id)}
                   className="singlepostcont"
                 >
-                  {post._id === currid && (
+                  {post._id === currid && !comment && (
                     <div className="updatewindow">
                       <textarea
                         placeholder={post.content}
@@ -119,16 +143,48 @@ function Home() {
                       </div>
                     </div>
                   )}
+
+                  {post._id === currid && comment && (
+                    <div className="updatewindow">
+                      <textarea
+                        placeholder={post.content}
+                        value={updateText}
+                        onChange={(e) => setUpdateText(e.target.value)}
+                        cols="30"
+                        rows="10"
+                      ></textarea>
+                      <div className="bcont">
+                        <button className="updatepost">Add comment</button>
+                        <button className="updatepost">Cancel</button>
+                      </div>
+                    </div>
+                  )}
+
                   {post._id !== currid && (
                     <div className="posttext">{post.content}</div>
                   )}
-                  <button className="button-18" disabled={currid != -1}>
+                   {post.comments && post.comments.length>0 && (
+                    <div className="commentcont">
+                      <h3>Comments</h3>
+                      {
+                        post.comments.map(com => (
+                          <div key={com}>{com}</div>
+                        ))
+                      }
+                    </div>
+                  )}
+                 <div className="buttoncont">
+                 <button className="button-18" disabled={currid != -1}>
                     Update
                   </button>
                   <button className="button-18">Delete</button>
+                  <button className="button-18" disabled={currid != -1}>
+                    Comment
+                  </button>
                   <button className="button-1">
                     {post.likes ? "Dislike" : "Like"}
                   </button>
+                 </div>
                 </div>
               ))}
             </>

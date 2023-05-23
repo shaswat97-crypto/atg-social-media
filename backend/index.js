@@ -1,10 +1,12 @@
 import express from "express";
 import mongoose from "mongoose";
-import cors from "cors";
+// import cors from "cors";
 import Router from './routes.js'
+import * as dotenv from 'dotenv'
+dotenv.config()
 
 mongoose
-  .connect("mongodb://localhost:27017/atg-social-media")
+  .connect(process.env.MONGO_URL)
   .then(() => {
     console.log("Connected to DB");
   })
@@ -13,10 +15,10 @@ mongoose
   });
 
 const app = express();
-app.use(cors());
+// app.use(cors());
 app.use(express.json());
 app.use('/api/v1', Router);
 
-app.listen(5000, () => {
-  console.log("Server started on port 3000");
+app.listen(process.env.PORT, () => {
+  console.log(`Server started on port ${process.env.PORT}`);
 });

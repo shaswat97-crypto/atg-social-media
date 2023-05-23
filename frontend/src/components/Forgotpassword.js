@@ -11,7 +11,7 @@ function Forgotpassword() {
     let password = formData.get('password');
 
     let obj = {username, password};
-    let res = await axios.post('http://localhost:5000/api/v1/forgotpassword', obj)
+    let res = await axios.post('/api/v1/forgotpassword', obj)
     e.target.reset();
     if(res.status == 200){
       navTo('/home')
@@ -26,7 +26,7 @@ function Forgotpassword() {
       <label htmlFor="">Enter new password</label>
       <input name='password' id='password' type="text" />
       <button style={{marginRight:'0', marginBottom:'10px'}} className='button-18'>Resest password</button>
-      <button style={{marginRight:'0', marginBottom:'10px'}} className='button-18' onClick={()=>navTo('/signin')}>Sign in</button>
+      <button style={{marginRight:'0', marginBottom:'10px'}} className='button-18' onClick={()=>navTo('/')}>Sign in</button>
       </form>
     </div>
   )

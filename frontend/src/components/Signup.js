@@ -12,7 +12,7 @@ function Signup() {
     let password = formData.get('password');
 
     let obj = {name, username, password};
-    let res = await axios.post('http://localhost:5000/api/v1/signup', obj)
+    let res = await axios.post('/api/v1/signup', obj)
     e.target.reset();
     if(res.status == 201){
       navTo('/home')
@@ -29,7 +29,7 @@ function Signup() {
       <label htmlFor="password">Password</label>
       <input name='password' id='password' type="text" />
       <button type='submit' style={{marginRight:'0', marginBottom:'10px'}} className='button-18'>Sign up</button>
-      <button style={{marginRight:'0', marginBottom:'10px'}} className='button-18' onClick={()=>navTo('/signin')}>Already have account?</button>
+      <button style={{marginRight:'0', marginBottom:'10px'}} className='button-18' onClick={()=>navTo('/')}>Already have account?</button>
       <button style={{marginRight:'0', marginBottom:'10px'}} className='button-18' onClick={()=>navTo('/forgotpassword')}>Forgot password</button>
       </form>
     </div>
